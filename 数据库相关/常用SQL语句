@@ -1,0 +1,371 @@
+
+连接数据库命令： mysql -u root -p密码
+创建数据库 UCS
+CREATE DATABASE UCS
+查看所有的数据库：show databases;
+删除数据库： drop database dbname;
+切换数据库：use dbname;
+
+创建表Persons
+CREATE TABLE Persons
+(
+Id_P int,
+LastName varchar(255),
+FirstName varchar(255),
+Address varchar(255),
+City varchar(255)
+)
+
+decimal(size,d) numeric(size,d)
+容纳带有小数的数字。"size" 规定数字的最大位数。"d" 规定小数点右侧的最大位数。
+
+
+mysql的数据类型
+
+字符串型 VARCHAR、CHAR
+
+当创建表时候，使用字符串类型，name varchar(40)，指定数据的长度
+
+varchar和char的区别
+
+varchar的长度是可变的，比如name varchar(5),存值a ，直接把a存进去
+
+char的长度是固定的，比如 name char(5),存值b，把b存进去，后面加很多空格
+
+大数据类型BLOB、TEXT
+
+使用这个类型可以存储文件，一般开发，不会直接把文件存到数据库里面，存文件的路径
+
+数值型TINYINT、SMALLINT、INT、BIGINT、FLOAT、DOUBLE
+
+对应java里面byte short  int  long  float  double
+
+逻辑性 BIT
+
+类似java里面的boolean
+
+日期型
+
+DATE：用于表示日期 1945-08-15  TIME：用于表示时间 19:10:40
+
+下面的两个类型可以表示日期和时间
+
+DATETIME：手动添加时间到数据表里面
+
+TIMESTAMP：自动把时间添加到表里面
+
+查看表结构: describe tablename;
+
+mysql的约束有三种:
+
+第一种，非空约束 not null ,表示数据不能为空
+
+第二种，唯一性约束 unique ,表中的记录不能重复的
+
+第三种，主键约束 primary key,表示非空，唯一性
+
+自动增长 auto_increment
+
+创建带约束的表:
+
+create table person (
+
+id int primary key  atuo_increment,
+
+username varchar(40) not null,
+
+sex varchar(20)
+
+)
+主键、外键约束
+MySQL:
+
+CREATE TABLE Orders
+(
+Id_O int NOT NULL ,
+OrderNo int NOT NULL,
+Id_P int,
+PRIMARY KEY (Id_O),
+FOREIGN KEY (Id_P) REFERENCES Persons(Id_P)
+)
+
+SQL Server / Oracle / MS Access:
+
+CREATE TABLE Orders
+(
+Id_O int NOT NULL PRIMARY KEY,
+OrderNo int NOT NULL,
+Id_P int FOREIGN KEY REFERENCES Persons(Id_P)
+)
+
+如果需要命名 PRIMARY KEY 约束，以及为多个列定义 PRIMARY KEY 约束：
+
+MySQL / SQL Server / Oracle / MS Access:
+ALTER TABLE Persons
+ADD CONSTRAINT pk_PersonID PRIMARY KEY (Id,Name)
+
+check约束：
+
+My SQL:
+CREATE TABLE Persons
+(
+Id_P int NOT NULL,
+..
+CHECK (Id_P>0)
+)
+
+SQL Server / Oracle / MS Access:
+CREATE TABLE Persons
+(
+Id_P int NOT NULL CHECK (Id_P>0),
+..
+)
+
+default 约束：
+
+My SQL / SQL Server / Oracle / MS Access:
+CREATE TABLE Persons
+(
+Id_P int NOT NULL,
+..
+City varchar(255) DEFAULT 'Sandnes'
+)
+
+删除表: drop table tablename;
+
+清除表数据： truncate table tablename;
+            delete from tablename (where ... )
+
+查看当前的数据库里面有哪些表: show tables;
+
+（2）修改表里面的记录update
+
+修改user表里面id=1的username修改为QQQ，修改password为999
+
+update user set username='QQQ',password='999' where id=1;
+
+（3）别名
+
+as 别名:  select username as u1,chinese as c1 from user;
+
+（4）distinct，去除表里面重复记录
+
+语句 select distinct * from tablename;
+
+（5）where子句
+
+第一，运算符 < > >= <= <> !=
+
+查询user表里面语文成绩大于60的所有的人员
+
+select * from user where chinese > 60;
+
+第二，in：在范围内
+
+查询user表里面英语成绩是80、90的人员的信息
+
+select * from user where english in (80,90);
+
+第三，and：在where里面如果有多个条件，表示多个条件同时满足
+
+查询user表里面语文成绩是100，并且英语成绩是30的人员的信息
+
+select * from user where chinese=100 and english=30;
+
+第四，得到区间范围的值
+
+查询user表里面语文成绩(不)在70-100之间的值
+
+1.select * from user where chinese >=70 and chinese <=100;
+
+2.select * from user where chinese （not） between 70 and 100;
+
+第五，like：模糊查询
+
+查询user表里面username包含a的人员信息
+
+Select * from user where username like '%a%';
+
+通配符
+从 "Persons" 表中选取居住在包含 "lond" 的城市里的人
+SELECT * FROM Persons WHERE City LIKE '%lond%'
+从 "Persons" 表中选取名字的第一个字符之后是 "eorge" 的人：
+SELECT * FROM Persons WHERE FirstName LIKE '_eorge'
+从 "Persons" 表中选取居住的城市以 "A" 或 "L" 或 "N" 开头的人：
+SELECT * FROM Persons WHERE City LIKE '[ALN]%'
+从 "Persons" 表中选取居住的城市不以 "A" 或 "L" 或 "N" 开头的人：
+SELECT * FROM Persons WHERE City LIKE '[!ALN]%'
+
+（6）查看当前的运行的数据库
+
+select database();
+
+（8）对表中查询的记录排序order by
+
+ order by写在select语句的最后
+
+第一，升序 order by要排序字段 asc（asc可以省略，默认的情况下就是升序）
+
+对user表里面查询的数据，根据语文成绩进行升序排列
+
+select * from user order by chinese asc;
+
+第二，降序 order by要排序字段 desc
+
+对user表里面的英语成绩进行降序排列
+
+select * from user order by english desc;
+
+4、聚集函数 count(*),max(),min(),avg(),sum()
+
+第一，count()函数,根据查询的结果，统计记录数
+
+写法 select count(*) from ...where....
+
+查询user表里面有多少条记录
+
+select count(*) from user;
+
+查询各个课程号及相应的选课人数。
+
+select Cno,COUNT(Cno) from sc group by Cno;
+
+查询user表里面语文成绩大于60的人员有多少
+
+select count(*) from user where chinese>60;
+
+第二，sum()函数,求和的函数
+
+写法 select sum(要进行求和字段) from ...where....
+
+得到user表里面语文总成绩，英语的总成绩
+
+select sum(chinese),sum(english) from user;
+
+得到user表里面语文成绩的平均分（总的成绩/总的人数）
+
+select sum(chinese)/count(*) from user;
+
+第三，avg()函数,计算的平均数的函数
+
+得到user表里面语文成绩的平均分
+
+select avg(chinese) from user;
+
+第四，max()函数：计算最大值,min()函数：计算最小值
+
+select max(chinese)  min(math) from user;
+
+5、分组操作
+
+分组使用 group by根据分组的字段
+
+在分组的基础之上再进行条件的判断having，后面可以写聚集函数
+
+（1）举例说明
+
+创建表 orders
+
+create table orders (
+
+id int,
+
+name varchar(40),
+
+price int
+
+)
+
+orders表里面每类商品的总的价格
+
+select name,sum(price) from orders group by name;
+
+对商品进行分类，得到每类商品的总价格大于66的商品
+
+select name,sum(price) from orders where sum(price)>66 
+group by name;
+
+上面的语句在逻辑上没有问题，在语法上，where里面不能写聚集函数，报错
+
+正确的写法：
+
+select name,sum(price) from orders group by price 
+having sum(price)>66;
+
+6、mysql的关键字limit
+
+（1）limit关键字查询表中的某几条记录
+
+（2）limit关键字不是标准sql的关键字，只能在mysql数据库里面使用，
+实现分页的功能
+
+在oracle里面特有关键字rownum
+
+select name from user where rownum <= 3;
+
+在sqlserver里面特有关键字top
+
+select top 5 name from user; 
+
+（3）使用limit查询前几条记录
+
+写法： limit前几条记录  limit 3
+
+查询user表里面前三条记录
+
+select * from user limit 3;
+
+select * from user limit 0,3;
+
+（4）使用limit查询第几条到第几条记录
+
+写法： limit第一个参数,第二个参数
+
+第一个参数开始的记录数的位置，从0开始的
+
+第二个参数从开始的位置向后获取几条记录
+
+查询user表里面第二条到第四条记录
+
+select * from user limit 1,3;
+
+8、其他命令
+
+清除表里的已有数据: truncate table tablename
+
+(不应该用 DELETE FROM table_name,也不应该用 DROP TABLE table_name)
+
+原因： DELETE的时候MySQL会有返回值（影响了多少条数据）， 
+
+而TRUNCATE TABLE没有返回值， 所以速度更快,
+
+另外DROP TABLE的情况下需要重新创建表
+
+
+表重命名: alter table tablename rename to newtablename
+
+设置字段column_name为主键，自动增长: alter table tablename 
+
+modify column_name int auto_increment primary key;
+
+设置字段值唯一: alter table tablename add unique(column_name)
+
+删除字段: alter table tablenamme drop column name
+
+增加字段main_id: alter table tablename add main_id int(5);
+
+增加字段放在column字段之后: alter table tablename add
+
+'newcolumn_name' int not null default 0 after 'this_column'
+
+增加字段放在最前面: alter table tablename add 'newcolumn_name' 
+
+int not null default 0 first
+
+设置、修改、重命名字段（column）包括其属性／类型:
+
+change 和modify基本是一样的,唯一区别就是CHANGE具有重命名功能
+
+alter table tablename change column_name newcolumn_name int(5)..
+
+alter table tablename modify column_name newcolumn_name int(5)..
