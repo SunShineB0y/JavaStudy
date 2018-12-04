@@ -1,5 +1,5 @@
 redis是一个基于内存的高性能key-value数据库，整个数据库系统
-加载在内存当中进行操作，定期通过异步操作把数据库数据写入硬盘。
+加载在内存当中进行操作，定期通过异步操作把数据写入磁盘。
 
 一、redis的好处
 
@@ -42,7 +42,17 @@ redis服务重启时会使用AOF文件来还原数据库。
 RDB持久化方式：方便备份，恢复大数据集时比AOF要快，但是会丢失部分数据
 AOF持久化方式：AOF文件会过大。
 
-五、Redis缓存击穿、失效及热点key问题：
+五、分布式
+
+redis支持主从的模式。原则：Master会将数据同步到slave，而slave不会
+将数据同步到master。Slave启动时会连接master来同步数据。
+
+
+这是一个典型的分布式读写分离模型。我们可以利用master来插入数据，
+slave提供检索服务。这样可以有效减少单个机器的并发访问数量。
+
+
+六、Redis缓存击穿、失效及热点key问题：
 https://www.cnblogs.com/peteremperor/p/7342119.html
 
 Redis常见面试问题：
@@ -50,5 +60,5 @@ Redis常见面试问题：
 
 2.https://mp.weixin.qq.com/s/QeJOyNCg5z7uwNXDrLkHww
 
-
-
+Redis进阶
+1.https://mp.weixin.qq.com/s/pkGHXNCqGVbVofKwI2yP4A
