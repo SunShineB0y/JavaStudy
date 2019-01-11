@@ -21,3 +21,12 @@ Servlet接口定义了5个方法，其中前三个方法与Servlet生命周期�
 - ServletConfig getServletConfig()
 
 **声命周期： Web容器加载Servlet并将其实例化后，Servlet生命周期开始**，容器运行其init()方法进行Servlet的初始化；请求到达时调用Servlet的service()方法，service()方法会根据需要调用与请求对应的doGet或doPost等方法；当服务器关闭或项目被卸载时服务器会将Servlet实例销毁，此时会调用Servlet的destroy()方法。 init方法和destory方法只会执行一次，service方法客户端每次请求Servlet都会执行。Servlet中有时会用到一些需要初始化与销毁的资源，因此可以把初始化资源的代码放入init方法中，销毁资源的代码放入destroy方法中，这样就不需要每次处理客户端的请求都要初始化与销毁资源。
+
+## get和post请求的区别
+
+1. get请求用于从服务器获取资源，post请求用于向服务器提交数据
+2. get请求将表单中的数据按照name＝value的形式，通过?添加到action所指向的url后面，并且变量之间用＆连接；post是将表单中的数据放到HTTP协议的请求头或消息体中，传递到action所指向url
+3. get传输数据收到URL长度限制(1024字节即256字符)；post可以传输大量数据，上传文件通常使用post方式
+4. 使用get时参数会显示在地址栏上，而post不会，传输敏感数据推荐使用post方式
+
+get方式提交表单的典型应用是搜索引擎。
