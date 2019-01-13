@@ -24,4 +24,44 @@ Struts2是一个基于MVC设计模式的Web应用框架，它本质上相当于�
 	- 匹配全部以html结尾的请求：<url-pattern>*.html</url-pattern>
 	
 	- 错误写法：<url-pattern>*</url-pattern>
+	
+	
+## Struts的核心配置文件struts.xml
+
+    <package name="aaa" namespace="/front" extends="struts-default">
+		<action name="denglu" class="cn.java.action.front.frontAction" method="login"></action>
+		<result name="abc">/page/front/success.jsp</result>
+		<result name="def" type="redirect">/page/front/success.jsp</result>
+
+		<action name="zhuce" class="cn.java.action.front.frontAction" method="register"></action>
+		<action>...</action>
+	</package>
+
+上面这个`<package>...</package>`可以配置很多个，用来对应不同action中的不同方法，下面介绍每一部分代表什么：
+
+- package：包
+
+- name：包名，没什么具体的意义，就是随便起的一个名字
+
+- namespace：为当前包下的所有action设置一个全局路径
+
+- action标签：用于配置某一个action类
+
+- name：虚拟路径，用于访问具体action类中真正的方法
+
+- class：action类的具体路径
+
+- method：action类中具体的action方法名
+
+- result：执行结果
+
+- name：name中的字符串对应action中return的执行结果，通过这个字符串以及后面配置的路径找到并返回具体的jsp页面，默认就是转发，上面的`abc`就代表转发的路径，加上`type="redirect"`则代表重定向，此处的**转发和重定向**就是struts2的两种跳转方式。
+
+访问cn.java.action.front包下frontAction类的login方法：
+
+    http://localhost:8080/项目名/front/denglu.action
+
+访问cn.java.action.front包下frontAction类的register方法：
+
+    http://localhost:8080/项目名/front/zhuce.action
 
