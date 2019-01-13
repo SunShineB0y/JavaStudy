@@ -40,3 +40,20 @@ Form标签的method属性是get时调用doGet(),是post时调用doPost()方法
 Servlet**不是**线程安全的，多线程并发的读写会导致数据不同步的问题。
 
  解决的办法是尽量不要定义name属性，而是要把name变量分别定义在doGet()和doPost()方法内。虽然使用synchronized(name){}语句块可以解决问题，但是会造成线程的等待，不是很科学的办法。 注意：多线程的并发的读写Servlet类属性会导致数据不同步。但是如果只是并发地读取属性而不写入，则不存在数据不同步的问题。因此Servlet里的只读属性最好定义为final类型的。
+ 
+ ## 转发和重定向的区别
+转发是服务器行为，重定向是客户端行为
+
+**转发（Forword）**通过RequestDispatcher对象的forward（HttpServletRequest request,HttpServletResponse response）方法实现的。RequestDispatcher可以通过HttpServletRequest 的getRequestDispatcher()方法获得。例如下面的代码就是跳转到login_success.jsp页面。
+
+     request.getRequestDispatcher("login_success.jsp").forward(request, response);
+
+**重定向（Rediret）**是利用服务器返回的状态吗来实现的。客户端浏览器请求服务器的时候，服务器会返回一个状态码。服务器通过HttpServletRequestResponse的setStatus(int status)方法设置状态码。如果服务器返回301或者302，则浏览器会到新的网址重新请求该资源。
+
+**区别：**
+
+1. 地址栏显示不同：forward是服务器请求资源,服务器直接访问目标地址的URL,把那个URL的响应内容读取过来,然后把这些内容再发给浏览器.浏览器根本不知道服务器发送的内容从哪里来的,所以它的地址栏还是原来的地址. redirect是服务端根据逻辑,发送一个状态码,告诉浏览器重新去请求那个地址.所以地址栏显示的是新的URL。一句话表述：**重定向会使URL发生变化，而转发不会。** 
+2. 数据共享不同：转发页面和转发到的页面可以共享request里的数据，而重定向不能。
+3. 运用地方不同：转发一般用于用户登录的时候,根据角色转发到相应的模块。重定向一般用于用户注销登陆时返回主页面和跳转到其它的网站等
+4. 效率上转发更高，而重定向较低。
+
