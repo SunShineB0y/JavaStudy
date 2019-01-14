@@ -61,7 +61,8 @@ Servlet**不是**线程安全的，多线程并发的读写会导致数据不同
 
 自动刷新可以实现一段时间后自动跳转到其他页面，也可以实现一段时间后自动刷新本页面。
 Servlet中通过HttpServletResponse对象设置Header属性实现自动刷新。例如：
- `Response.setHeader("Refresh","1000;URL=http://localhost:8080/servlet/example.htm"); `  
+
+    `Response.setHeader("Refresh","1000;URL=http://localhost:8080/servlet/example.htm"); `  
 
 
 其中1000为时间，单位为毫秒。URL指定就是要跳转的页面（如果设置自己的路径，就会实现没过一秒自动刷新本页面一次），电商平台的支付成功页面会自动跳转到商品详情页面，这就用到了自动刷新。
