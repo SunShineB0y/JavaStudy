@@ -65,3 +65,52 @@ Struts2是一个基于MVC设计模式的Web应用框架，它本质上相当于�
 
     http://localhost:8080/项目名/front/zhuce.action
 
+## 通过Struts2获取表单提交过来的参数信息
+1. 第一种方法是通过get/set方法进行获取
+
+	
+	- 把属性封装到一个实体类中,通过get/set方法进行获取，使用这样的方式时表单中的对象要加上对象名，如`user.username、user.password`
+
+	    	public class adminAction extends ActionSupport{
+				private User user = new User();
+				public User get	User(){
+					return user;
+				}
+				
+				public void setUser(User user){
+					this.user = user;
+				}
+			 
+				//...使用user.get..()方法,实现具体业务逻辑
+
+			} 
+		
+	- 不进行封装，直接使用属性的get/set方法实现业务逻辑，用这种方式时表单中的对象不需要加对象名，如`username、password` 
+
+			public class adminAction extends ActionSupport{
+				private String username;
+
+				private String password;
+
+				public String getUsername(){
+					return username;	
+				}
+
+				public void setUsername(String username){
+					this.username = username;
+				}
+
+				public String getPassword(){
+					return password;
+				}
+				
+				public void setPassword(String password){
+					this.password = password;
+				}
+				
+				...
+				
+				//...直接使用属性名,实现具体业务逻辑
+			}
+	
+	- 第一种方式更好的体现了封装的思想，当表单传过来的参数较多时，推荐使用第一种方式，这样action类中不会有太多的get/set方法，action类不会显得那么臃肿。
