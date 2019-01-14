@@ -1,5 +1,5 @@
 ## Servlet总结
-在Java Web程序中，Servlet主要负责接受用户请求HttpServletRequest,在doGet(),doPost()中做相应的处理，并将回应**HttpServletResponse**反馈给用户。Servlet可以设置初始化参数，供Servlet内部使用。一个Servlet类只会有一个实例，在它初始化时调用**init(）**方法，在销毁时调用**destory()**方法。Servlet需要在web.xml中配置，（MyEclipse中创建Servlet会自动配置），一个Servlet可以设置多个URL访问。Servlet不是线程安全，因此要谨慎使用类变量。
+在Java Web程序中，Servlet主要负责接受用户请求HttpServletRequest,在doGet(),doPost()中做相应的处理，并将回应**HttpServletResponse**反馈给用户。Servlet可以设置初始化参数，供Servlet内部使用。一个Servlet类只会有一个实例，在它初始化时调用 **init()** 方法，在销毁时调用 **destory()** 方法。Servlet需要在web.xml中配置，（MyEclipse中创建Servlet会自动配置），一个Servlet可以设置多个URL访问。Servlet不是线程安全，因此要谨慎使用类变量。
 
 ## Servlet的优点
 1. 只需要启动一个操作系统进程以及加载一个JVM，大大降低了系统的开销
@@ -44,11 +44,11 @@ Servlet**不是**线程安全的，多线程并发的读写会导致数据不同
  ## 转发和重定向的区别
 转发是服务器行为，重定向是客户端行为
 
-**转发（Forword）**通过RequestDispatcher对象的forward（HttpServletRequest request,HttpServletResponse response）方法实现的。RequestDispatcher可以通过HttpServletRequest 的getRequestDispatcher()方法获得。例如下面的代码就是跳转到login_success.jsp页面。
+转发（Forword）通过RequestDispatcher对象的forward（HttpServletRequest request,HttpServletResponse response）方法实现的。RequestDispatcher可以通过HttpServletRequest 的getRequestDispatcher()方法获得。例如下面的代码就是跳转到login_success.jsp页面。
 
      request.getRequestDispatcher("login_success.jsp").forward(request, response);
 
-**重定向（Rediret）**是利用服务器返回的状态吗来实现的。客户端浏览器请求服务器的时候，服务器会返回一个状态码。服务器通过HttpServletRequestResponse的setStatus(int status)方法设置状态码。如果服务器返回301或者302，则浏览器会到新的网址重新请求该资源。
+重定向（Rediret）是利用服务器返回的状态吗来实现的。客户端浏览器请求服务器的时候，服务器会返回一个状态码。服务器通过HttpServletRequestResponse的setStatus(int status)方法设置状态码。如果服务器返回301或者302，则浏览器会到新的网址重新请求该资源。
 
 **区别：**
 
