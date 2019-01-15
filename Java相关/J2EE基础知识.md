@@ -68,3 +68,24 @@ Servlet中通过HttpServletResponse对象设置Header属性实现自动刷新。
 其中1000为时间，单位为毫秒。URL指定就是要跳转的页面（如果设置自己的路径，就会实现没过一秒自动刷新本页面一次），电商平台的支付成功页面会自动跳转到商品详情页面，这就用到了自动刷新。
 
 
+##JSP的内置对象及作用
+JSP共有9个内置对象：
+
+- request:封装客户端的请求，其中包含来自GET或POST请求的参数
+
+- response：封装服务器对客户端的响应
+
+- session:封装用户会话的对象
+
+- pageContext:通过该对象可以获得其他对象
+
+- application:封装服务器运行环境的对象
+
+- out:输出服务器响应的输出流对象
+
+- config：Web应用的配置对象
+
+- page:JSP页面本身（相当于java中的this）	
+
+- exception:封装页面抛出异常的对象 
+
