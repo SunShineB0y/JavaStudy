@@ -114,3 +114,76 @@ Struts2是一个基于MVC设计模式的Web应用框架，它本质上相当于�
 			}
 	
 	- 第一种方式更好的体现了封装的思想，当表单传过来的参数较多时，推荐使用第一种方式，这样action类中不会有太多的get/set方法，action类不会显得那么臃肿。
+
+
+2. 第二种方式是通过 **模型驱动（ModelDriven）** 方式获取表单参数。用这种方式时表单中的对象也不需要加对象名
+
+		public class adminAction extends ActionSupport implements ModelDriven<User>{
+			private User user = new User();
+
+			@Override
+			public User getModel(){
+				return user;
+			}
+
+			//...使用user.get..()方法,实现具体业务逻辑
+		} 
+
+
+
+- 关于ModelDriven中的泛型User，actioon类中用什么接受JSP传递过来的参数，ModelDriven的泛型中就是什么类型。
+
+
+## Struts2获取request(HttpServletRequest)、session(HttpSession)、application（ServletContext）等对象
+
+1. 通过ServletActionContext可以直接获取request,response,ServletContext等对象
+
+		public class adminAction extends ActionSupport implements ModelDriven<User>{
+			private User user = new User();
+
+			@Override
+			public User getModel(){
+				return user;
+			}
+	
+			public String adminRegister(){
+				//通过ServletActionContext可以直接获取request,response,ServletContext等对象
+				HttpServletRequest request = ServletActionContext.getRequest();
+				request.setAttribute("user",user);
+
+				HttpSession session = request.getSession();
+
+				HttpServletResponse response = ServletActionContext.getRequest();
+
+				ServletContext application = ServletActionContext.getServletContext();
+
+				...
+			}
+		}
+
+
+
+2. 通过 **ServletRequestAware,ServletResponseAware** 接口实现
+
+		public class adminAction extends ActionSupport implements ServletRequestAware,ServletResponseAware{
+			private HttpServletRequest request;
+
+			privaet HttpServletResponse response;
+
+			@Override
+			public void setServletRequest(HttpServletRequest request){
+				this.request = request;
+			}
+
+			@Override
+			public void setServletResponse(HttpServletResponse response){
+				this.response = response;
+			}
+	
+			public void ...Action(){
+			
+			}
+		}
+	  
+
+2019/1/16 22:27:08 
