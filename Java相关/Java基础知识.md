@@ -28,7 +28,7 @@ Java中实现多态的两种方式：**继承**（多个子类对同一方法的
 普通用户而只需要安装 JRE（Java Runtime Environment）来运行 Java 程序。而程序开发者必须安装JDK来编译、调试程序。
 
 **JVM:**
-Java虚拟机，java.exe运行起来就是虚拟机，是一个进程。当我们运行一个程序时，JVM 负责将字节码转换为特定机器代码，JVM 提供了内存管理/垃圾回收和安全机制等。JVM可以屏蔽操作系统的差异，使Java编写的程序独立于硬件和操作系统，使任何可以支持该虚拟机的操作系统都可以运行Java程序，实现“一次编码，到处运行”。
+Java虚拟机，java.exe运行起来就是虚拟机，是一个进程。当我们运行一个程序时，JVM 负责将字节码转换为特定机器代码，JVM 提供了内存管理、垃圾回收和安全机制等。JVM可以屏蔽操作系统的差异，使Java编写的程序独立于硬件和操作系统，使任何可以支持该虚拟机的操作系统都可以运行Java程序，实现“一次编码，到处运行”。
 
 **区别和联系**
 
@@ -68,11 +68,11 @@ final关键字可以用于修饰类、产量和方法
 
 1. final修饰类，此类不可以被继承，类中所有的成员方法被隐式指定为final方法
 2. final修饰变量，如果该变量是基本数据类型的，则该变量的值在初始化后不能修改；如果是引用类型的变量，则在初始化不能让其指向另一个对象。
-3. 使用final的原因:一是把方法锁定，防止继承类修改它的含义；第二是效率。在早期的Java实现版本中，会将final方法转为内嵌调用。但是如果方法过于庞大，可能看不到内嵌调用带来的任何性能提升（现在的Java版本已经不需要使用final方法进行这些优化了）。类中所有的private方法都隐式地指定为final。
+3. 使用final修饰方法的原因:一是把方法锁定，防止继承类修改它的含义；第二是效率。在早期的Java实现版本中，会将final方法转为内嵌调用。但是如果方法过于庞大，可能看不到内嵌调用带来的任何性能提升（现在的Java版本已经不需要使用final方法进行这些优化了）。类中所有的private方法都隐式地指定为final。
 
 static关键字主要有以下几种使用场景
 
-1.修饰成员变量和成员方法: 被 static 修饰的成员属于类，不属于单个这个类的某个对象，被类中所有对象共享，可以并且建议通过类名调用。被static 声明的成员变量属于静态成员变量，静态变量 存放在 Java 内存区域的方法区。调用格式： ` 类名.静态变量名 类名.静态方法名() ` 
+1.修饰成员变量和成员方法: 被 static 修饰的成员属于类，不属于单个这个类的某个对象，被类中所有对象共享，建议通过类名调用。被static 声明的成员变量属于静态成员变量，静态变量 存放在 Java 内存区域的方法区。调用格式： ` 类名.静态变量名 类名.静态方法名() ` 
 
 2.静态代码块:静态代码块定义在类中方法外, 静态代码块在非静态代码块之前执行(静态代码块—>非静态代码块—>构造方法)。 该类不管创建多少对象，静态代码块只执行一次.
 
@@ -86,7 +86,7 @@ instance of 通过返回一个布尔类型的值来判断一个对象是否是�
 ## 8.String、StringBuilder、StringBuffer三者的区别
 1. String使用final关键字修饰的字符数组保存字符串，`private final char value[]`，所以String对象是不可变的。每次对 String 类型进行改变的时候，都会生成一个新的 String 对象，然后将指针指向新的 String 对象。
 
-	StringBuilder 与 StringBuffer 都继承自 AbstractStringBuilder 类，在 AbstractStringBuilder 中也是使用字符数组保存字符串char[]value 但是没有用 final 关键字修饰，所以这两种对象都是可变的。StringBuffer 每次都会对 StringBuffer 对象本身进行操作，而不是生成新的对象并改变对象引用。
+	StringBuilder 与 StringBuffer 都继承自 AbstractStringBuilder 类，在 AbstractStringBuilder 中也是使用字符数组保存字符串char[]value 但是没有用 final 关键字修饰，所以这两种对象都是可变的。StringBuffer 和StringBuilder每次都会对字符串对象本身进行操作，而不是生成新的对象并改变对象引用。
 1. String 中的对象是不可变的，也就可以理解为常量，线程安全。AbstractStringBuilder 是 StringBuilder 与 StringBuffer 的公共父类，定义了一些字符串的基本操作，如 expandCapacity、append、insert、indexOf 等公共方法。StringBuffer 对方法加了同步锁或者对调用的方法加了同步锁，所以是线程安全的。StringBuilder 并没有对方法进行加同步锁，所以是非线程安全的。 
 
 **总结：**
