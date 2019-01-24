@@ -70,7 +70,7 @@ mysql的约束有三种:
 
 create table person (
 
-id int primary key  atuo_increment,
+id int primary key  auto_increment,
 
 username varchar(40) not null,
 
@@ -106,7 +106,7 @@ ADD CONSTRAINT pk_PersonID PRIMARY KEY (Id,Name)
 
 check约束：
 
-My SQL:
+MySQL:
 CREATE TABLE Persons
 (
 Id_P int NOT NULL,
@@ -150,7 +150,7 @@ as 别名:  select username as u1,chinese as c1 from user;
 
 （4）distinct，去除表里面重复记录
 
-语句 select distinct * from tablename;
+语句 select distinct studentName from tablename;
 
 （5）where子句
 
@@ -190,7 +190,7 @@ Select * from user where username like '%a%';
 从 "Persons" 表中选取居住在包含 "lond" 的城市里的人
 SELECT * FROM Persons WHERE City LIKE '%lond%'
 从 "Persons" 表中选取名字的第一个字符之后是 "eorge" 的人：
-SELECT * FROM Persons WHERE FirstName LIKE '_eorge'
+SELECT * FROM Persons WHERE FirstName LIKE '_eorge%'
 从 "Persons" 表中选取居住的城市以 "A" 或 "L" 或 "N" 开头的人：
 SELECT * FROM Persons WHERE City LIKE '[ALN]%'
 从 "Persons" 表中选取居住的城市不以 "A" 或 "L" 或 "N" 开头的人：
@@ -366,6 +366,14 @@ int not null default 0 first
 
 change 和modify基本是一样的,唯一区别就是CHANGE具有重命名功能
 
-alter table tablename change column_name newcolumn_name int(5)..
+使用change，重命名、修改字段属性
 
-alter table tablename modify column_name newcolumn_name int(5)..
+alter table student change name studentName int(5)..
+
+使用change，只修改字段属性
+
+alter table student change name name int(5)..
+
+使用modify修改字段属性
+
+alter table student modify name int(5)..
