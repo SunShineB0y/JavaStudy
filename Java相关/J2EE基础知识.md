@@ -90,5 +90,7 @@ JSP共有9个内置对象：
 - exception:封装页面抛出异常的对象 
 
 ## include指令
-在JSP中使用include指令可以包含其他文件，被包含的文件就好像是JSP的一部分，会被同时编译执行，可以是JSP文件、HTML文件或文本文件。 语法格式如下： <%@ include file="文件相对 url 地址" %>
+在JSP中使用include指令可以包含其他文件，被包含的文件就好像是JSP的一部分，会被同时编译执行，可以是JSP文件、HTML文件或文本文件。 语法格式如下： <%@ include file="文件相对路径" /%>
 
+## include动作
+jsp:include动作元素用来包含静态和动态的文件，该动作把制定的文件插入正在生成的页面。语法格式如下：<jsp:include  page="文件相对路径" flush="true" />
