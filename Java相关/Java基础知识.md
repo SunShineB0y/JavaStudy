@@ -152,3 +152,40 @@ Java在运行状态中，对于任何一个类，都能够知道它的所有属�
 
 ## 21.volatile关键字的作用
 使用volatile关键字修饰的变量能够强迫线程去主存(共享内存)中对其进行读写，解决了变量在主存和本地内存的读写不一致问题。
+
+## 22.谈谈异常
+#### Java异常类层次结构图：
+
+![](https://i.imgur.com/6OuYfDa.png)
+
+java.lang包中的Throwable类，有两个重要的子类：Execption（异常）和Error（错误）。异常可以被程序本身处理，而错误不可以。
+
+**Error**是程序无法处理的错误，表示运行应用程序中比较严重的问题，大多数错误与代码编写者执行的操作无关，而表示程序运行时JVM发生的问题。例如，Java虚拟机运行错误（Virtual MachineError），当 JVM 不再有继续执行操作所需的内存资源时，将出现 OutOfMemoryError。这些异常发生时，Java虚拟机（JVM）一般会选择线程终止。
+
+**Execption**是程序本身可以处理的异常，Exception 类有一个重要的子类 RuntimeException。RuntimeException 异常由Java虚拟机抛出。NullPointerException（要访问的变量没有引用任何对象时，抛出该异常）、ArithmeticException（算术运算异常，一个整数除以0时，抛出该异常）和 ArrayIndexOutOfBoundsException （下标越界异常）。
+
+#### 异常处理
+
+- try块：用于捕获异常，可以接一个或多个catch块来处理异常，如果没有catch块，必须跟一个finally块
+
+- finally块：无论是否捕获了异常，finally块的代码都会执行，这里通常会写一些关闭Db连接，回滚事务等逻辑。当try块或catch块中有return语句时，finally语句块会先执行。
+
+- throws:用在方法定义的时候，说明该方法可能会抛出异常
+
+- throw:用于抛出异常，可以return，一层一层地向上抛，直到找到可以处理它的调用处。
+
+#### Throwable类常用方法
+
+- public string getMessage():返回异常发生时的详细信息
+
+- public void printStackTrace():在控制台上打印Throwable对象封装的异常信息
+
+- public string toString():返回异常发生时的简要描述
+
+**finally块不会执行的情况：**
+
+1. 在finally语句块中发生了异常
+2. 在前面使用了System.exit()退出了程序
+3. 程序所在的线程死亡（当线程run( )方法执行完或因异常退出了run( )方法时，线程死亡）
+4. CPU被关闭
+
