@@ -1,5 +1,5 @@
-#Cookie和Session机制
-Cookie和Session都是Web应用程序中常用的会话跟踪技术，用来跟踪整个会话。Cookie通过在客户端记录信息确定用户身份，Session通过在服务端记录信息确定用户身份。
+# Cookie和Session机制
+Cookie和Session都是Web应用程序中常用的会话跟踪技术，用来跟踪整个会话。Cookie通过在客户端记录信息确定用户身份，Session通过在服务端记录信息确定用户身份。Cookie和Session依靠sessionID来关联。
 
 ## Cookie机制
 
@@ -63,3 +63,59 @@ Cookie的maxAge决定着Cookie的有效期，单位为秒（Second）。Cookie�
 response对象提供的Cookie操作方法只有一个添加操作add(Cookie cookie)。要想修改Cookie只能使用一个同名的Cookie来覆盖原来的Cookie，达到修改的目的。删除时只需要把maxAge修改为0即可。
 
 注意：从客户端读取Cookie时，包括maxAge在内的其他属性都是不可读的，也不会被提交。浏览器提交Cookie时只会提交name与value属性。maxAge属性只被浏览器用来判断Cookie是否过期。
+
+
+## Session机制
+
+Session机制是一种在服务端保持用户状态的会话跟踪机制。客户端浏览器访问服务器的时候，服务器把客户端信息以某种形式记录在服务器上。这就是Session。客户端浏览器再次访问时只需要从该Session中查找该客户的状态就可以了。Session的使用比Cookie方便，但是过多的Session存储在服务器内存中，会对服务器造成压力。
+
+### Session的生命周期
+
+Session保存在服务器端。为了获得更高的存取速度，服务器一般把Session放在内存里。每个用户都会有一个独立的Session。如果Session内容过于复杂，当大量客户访问服务器时可能会导致内存溢出。因此，Session里的信息应该尽量精简。
+
+Session在用户第一次访问服务器的时候自动创建。需要注意只有访问JSP、Servlet等程序时才会创建Session，只访问HTML、IMAGE等静态资源并不会创建Session。如果尚未生成Session，也可以使用request.getSession(true)强制生成Session。
+
+Session生成后，只要用户继续访问，服务器就会更新Session的最后访问时间，并维护该Session。用户每访问服务器一次，无论是否读写Session，服务器都认为该用户的Session“活跃（active）”了一次。
+
+### Session的有效期
+Session有自己的超时时间，如果较长时间没有访问服务器，则Session就会超时，这个Session就会被服务器废弃掉。
+
+Session的超时时间为maxInactiveInterval属性，可以通过对应的getMaxInactiveInterval()获取，通过setMaxInactiveInterval(longinterval)修改。
+
+Session的超时时间也可以在web.xml中修改。另外，通过调用Session的invalidate()方法可以使Session失效。
+
+Session被废弃的几种情况：
+  
+- 程序发生异常
+- 注销登录
+- 超时
+- 服务被断开 
+
+### Session的常用方法
+- void setAttribute(String attribute, Object value)：设置Session属性。value参数可以为任何Java Object。通常为Java Bean。value信息不宜过大。
+- String getAttribute(String attribute)：返回Session
+- String getId()：返回Session的ID。该ID由服务器自动创建，不会重复 
+- long getCreationTime()：返回Session的创建日期。返回类型为long，常被转化为Date类型，例如：Date createTime = new Date(session.getCreationTime()) 
+- long getLastAccessedTime()：返回Session的最后活跃时间。返回类型为long int 
+- getMaxInactiveInterval()：返回Session的超时时间。单位为秒。超过该时间没有访问，服务器认为该Session失效
+- void setMaxInactiveInterval(int second)：设置Session的超时时间。单位为秒 
+
+Tomcat中Session的默认超时时间为20分钟。通过setMaxInactiveInterval(int seconds)修改超时时间。可以修改web.xml改变Session的默认超时时间。例如修改为60分钟：
+
+	<session-config>
+   	<session-timeout>60</session-timeout>      <!-- 单位：分钟 -->
+	</session-config>
+
+注意：参数的单位为分钟，而setMaxInactiveInterval(int s)单位为秒。
+
+
+### Session和Cookie的区别
+
+1. cookie数据存放在客户的浏览器上，session数据放在服务器上；
+2. cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗，考虑到安全应当使用session；
+3. session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能。考虑到减轻服务器性能方面，应当使用COOKIE；
+4. 单个cookie在客户端的限制是3K，就是说一个站点在客户端存放的COOKIE不能超过3K；
+
+HTTP协议是无状态的，Session不能依据HTTP连接来判断是否为同一客户，因此服务器向客户端浏览器发送一个名为JSESSIONID的Cookie，它的值为该Session的id（也就是HttpSession.getId()的返回值）。Session依据该Cookie来识别是否为同一用户。
+
+该Cookie为服务器自动生成的，它的maxAge属性一般为–1，表示仅当前浏览器内有效，并且各浏览器窗口间不共享，关闭浏览器就会失效。
