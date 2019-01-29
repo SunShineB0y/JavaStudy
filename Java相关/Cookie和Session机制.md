@@ -11,18 +11,6 @@ Cookie和Session都是Web应用程序中常用的会话跟踪技术，用来跟�
 
 Web应用程序是使用HTTP协议传输数据的。HTTP协议是无状态的协议。一旦数据交换完毕，客户端与服务器端的连接就会关闭，再次交换数据需要建立新的连接。这就意味着服务器无法从连接上跟踪会话。即用户A购买了一件商品放入购物车内，当再次购买商品时服务器已经无法判断该购买行为是属于用户A的会话还是用户B的会话了。要跟踪该会话，就引入了Cookie机制。
 
-### Cookie的设置及发送过程
-
-![](https://i.imgur.com/QC6RWFD.png)
-
-1. 客户端发送一个http请求到服务器端 
-2. 服务器端发送一个http响应到客户端，其中包含Set-Cookie头部
-	> 意思就是指示客户端建立一个cookie，并且在后续的http请求中自动发送这个cookie到服务器端，直到这个cookie过期
-3. 客户端发送一个http请求到服务器端，其中包含Cookie头部
-4. 服务器端发送一个http响应到客户端
-
-在客户端的第二次请求中包含的Cookie头部中，提供给了服务器端可以用来唯一标识客户端身份的信息。这时，服务器端也就可以判断客户端是否启用了cookies。
-
 ### 记录用户访问次数
 Java中把Cookie封装成了javax.servlet.http.Cookie类。每个Cookie都是该Cookie类的对象。服务器通过操作Cookie类对象对客户端Cookie进行操作。通过request.getCookie()获取客户端提交的所有Cookie（以Cookie[]数组形式返回），通过response.addCookie(Cookie cookie)向客户端设置Cookie。
 
@@ -111,10 +99,10 @@ Tomcat中Session的默认超时时间为20分钟。通过setMaxInactiveInterval(
 
 ### Session和Cookie的区别
 
-1. cookie数据存放在客户的浏览器上，session数据放在服务器上；
+1. cookie数据存放在客户端浏览器上，session数据放在服务器上；
 2. cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗，考虑到安全应当使用session；
 3. session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能。考虑到减轻服务器性能方面，应当使用COOKIE；
-4. 单个cookie在客户端的限制是3K，就是说一个站点在客户端存放的COOKIE不能超过3K；
+4. 单个cookie在客户端的限制是4K，就是说一个站点在客户端存放的COOKIE不能超过4K；
 
 HTTP协议是无状态的，Session不能依据HTTP连接来判断是否为同一客户，因此服务器向客户端浏览器发送一个名为JSESSIONID的Cookie，它的值为该Session的id（也就是HttpSession.getId()的返回值）。Session依据该Cookie来识别是否为同一用户。
 
