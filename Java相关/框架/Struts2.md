@@ -51,7 +51,7 @@ Struts2是一个基于MVC设计模式的Web应用框架，它本质上相当于�
 
 - class：action类的具体路径
 
-- method：action类中具体的action方法名
+- method：action类中具体的方法名
 
 - result：执行结果
 
@@ -165,7 +165,7 @@ Struts2是一个基于MVC设计模式的Web应用框架，它本质上相当于�
 
 2. 通过 **ServletRequestAware,ServletResponseAware** 接口实现
 
-		public class adminAction extends ActionSupport implements ServletRequestAware,ServletResponseAware{
+		public class homeAction extends ActionSupport implements ServletRequestAware,ServletResponseAware{
 			private HttpServletRequest request;
 
 			privaet HttpServletResponse response;
@@ -180,7 +180,7 @@ Struts2是一个基于MVC设计模式的Web应用框架，它本质上相当于�
 				this.response = response;
 			}
 	
-			public void ...Action(){
+			public void home(){
 			
 			}
 		}
