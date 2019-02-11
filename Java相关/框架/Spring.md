@@ -17,7 +17,7 @@ AOP两种实现模式：JDK动态代理和Cglib动态代理。
 
 ## Spring MVC
 #### 简介
-Spring MVC是一用常见的用于开发Java Web应用的开发模式，是一种典型的MVC模式的开发框架。它的核心是DispatcherServlet  `即前端控制器`  ，DispatcherServlet 充当C `即Controller` 的角色，用于接收与转发用户请求，并响应处理结果。DispatcherServlet是整个流程控制的中心，由它调用其它组件处理用户的请求，它的存在降低了组件之间的耦合性。
+Spring MVC是一种常见的用于开发Java Web应用的开发模式，是一种典型的MVC模式的开发框架。它的核心是DispatcherServlet  `即前端控制器`  ，DispatcherServlet 充当C `即Controller` 的角色，用于接收与转发用户请求，并响应处理结果。DispatcherServlet是整个流程控制的中心，由它调用其它组件处理用户的请求，它的存在降低了组件之间的耦合性。
 
 #### 核心思想
 将业务数据抽取与业务数据呈现相分离。
