@@ -32,7 +32,7 @@ Java虚拟机，java.exe运行起来就是虚拟机，是一个进程。当我�
 
 **区别和联系**
 
-1. JDK用于开发，JRK用于运行,JDK包含了JRE
+1. JDK用于开发，JRE用于运行,JDK包含了JRE
 2. JDK和JRE都包含了JVM
 3. JVM是Java语言的核心并且具有平台独立性。
 
