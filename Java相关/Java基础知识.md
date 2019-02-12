@@ -86,7 +86,7 @@ instance of 通过返回一个布尔类型的值来判断一个对象是否是�
 ## 8.String、StringBuilder、StringBuffer三者的区别
 1. String使用final关键字修饰的字符数组保存字符串，`private final char value[]`，所以String对象是不可变的。每次对 String 类型进行改变的时候，都会生成一个新的 String 对象，然后将指针指向新的 String 对象。
 
-	StringBuilder 与 StringBuffer 都继承自 AbstractStringBuilder 类，在 AbstractStringBuilder 中也是使用字符数组保存字符串char[]value 但是没有用 final 关键字修饰，所以这两种对象都是可变的。StringBuffer 和StringBuilder每次都会对字符串对象本身进行操作，而不是生成新的对象并改变对象引用。
+	StringBuilder 与 StringBuffer 都继承自 AbstractStringBuilder 类，在 AbstractStringBuilder 中也是使用字符数组保存字符串char[] value 但是没有用 final 关键字修饰，所以这两种对象都是可变的。StringBuffer 和StringBuilder每次都会对字符串对象本身进行操作，而不是生成新的对象并改变对象引用。
 1. String 中的对象是不可变的，也就可以理解为常量，线程安全。AbstractStringBuilder 是 StringBuilder 与 StringBuffer 的公共父类，定义了一些字符串的基本操作，如 expandCapacity、append、insert、indexOf 等公共方法。StringBuffer 对方法加了同步锁或者对调用的方法加了同步锁，所以是线程安全的。StringBuilder 并没有对方法进行加同步锁，所以是非线程安全的。 
 
 **总结：**
@@ -113,7 +113,7 @@ instance of 通过返回一个布尔类型的值来判断一个对象是否是�
 ## 12.构造方法有什么特性
 1. 方法名与类名相同；
 2. 没有返回值，但不能用void声明构造函数；
-3. 生成类的对象是自动执行，无需调用。
+3. 生成类的对象时自动执行，无需调用。
 
 ## 13.在 Java 中定义一个不做事且没有参数的构造方法的作用
 Java 程序在执行子类的构造方法之前，如果没有用 super() 来调用父类特定的构造方法，则会调用父类的无参构造方法。如果父类没有无参的构造方法，子类的构造方法又没有用`super`调用父类特定的构造方法，则会在编译时发生错误。解决方法是在父类里加上一个无参且不做事的构造方法。
@@ -168,7 +168,7 @@ java.lang包中的Throwable类，有两个重要的子类：Execption（异常�
 
 - try块：用于捕获异常，可以接一个或多个catch块来处理异常，如果没有catch块，必须跟一个finally块
 
-- finally块：无论是否捕获了异常，finally块的代码都会执行，这里通常会写一些关闭Db连接，回滚事务等逻辑。当try块或catch块中有return语句时，finally语句块会先执行。
+- finally块：无论是否捕获了异常，finally块的代码都会执行，这里通常会写一些关闭Db连接，提交事务等逻辑。当try块或catch块中有return语句时，finally语句块会先执行。
 
 - throws:用在方法定义的时候，说明该方法可能会抛出异常
 
