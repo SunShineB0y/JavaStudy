@@ -189,3 +189,13 @@ java.lang包中的Throwable类，有两个重要的子类：Execption（异常�
 3. 程序所在的线程死亡（当线程run( )方法执行完或因异常退出了run( )方法时，线程死亡）
 4. CPU被关闭
 
+#### 几种常见的异常
+
+- NullPointerException
+- RuntimeExecption
+- IndexOutOfBoundsException
+- StringIndexOutOfBoundsException
+- IllegalStateExecption
+- IllegalThreadStateExecption
+- NoSuchMethodExecption
+- NumberFormatExecption
