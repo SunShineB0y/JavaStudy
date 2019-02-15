@@ -199,3 +199,10 @@ java.lang包中的Throwable类，有两个重要的子类：Execption（异常�
 - IllegalThreadStateExecption
 - NoSuchMethodExecption
 - NumberFormatExecption
+
+#### Java异常类层次结构图
+
+其中红色部分为受检查异常，它们必须被捕获，或者在函数中声明为抛出该异常。
+
+
+![](https://i.imgur.com/EgctZoL.jpg)
