@@ -200,6 +200,10 @@ SELECT * FROM Persons WHERE City LIKE '[!ALN]%'
 
 select database();
 
+（7）insert插入表数据
+
+INSERT INTO Persons VALUES ('Gates', 'Bill', 'Xuanwumen 10', 'Beijing')
+
 （8）对表中查询的记录排序order by
 
  order by写在select语句的最后
