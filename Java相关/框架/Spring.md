@@ -15,6 +15,22 @@ AOP两种实现模式：JDK动态代理和Cglib动态代理。
 1. 如果目标对象没有实现接口，默认情况下回采用Cglib动态代理实现AOP。这种方式只要业务类没有被标记为final就可以，因为它会生成业务类的子类作为代理类。
 
 
+#### Spring中用到的设计模式
+
+- 单例模式：保证一个类只有一个实例，并提供一个访问它的全局访问点。
+
+  spring中的单例模式完成了后半句话，即提供了全局的访问点BeanFactory。但没有从构造器级别去控制单例，这是因为spring管理的是是任意的java对象。 
+
+  核心提示点：Spring下默认的bean均为singleton，可以通过singleton=“true|false” 或者 scope="?"来指定。
+
+- 代理模式：为其它对象提供一种代理以控制对这个对象的访问。
+
+  Spring的Proxy模式在aop中有体现，比如JdkDynamicAopProxy和Cglib2AopProxy。
+- 观察者模式：定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。
+
+  Spring中Observer模式常用的地方是Listener，如ApplicationListener。
+  
+  
 ## Spring MVC
 #### 简介
 Spring MVC是一种常见的用于开发Java Web应用的开发模式，是一种典型的MVC模式的开发框架。它的核心是DispatcherServlet  `即前端控制器`  ，DispatcherServlet 充当C `即Controller` 的角色，用于接收与转发用户请求，并响应处理结果。DispatcherServlet是整个流程控制的中心，由它调用其它组件处理用户的请求，它的存在降低了组件之间的耦合性。
