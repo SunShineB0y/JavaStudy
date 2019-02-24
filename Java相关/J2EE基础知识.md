@@ -48,7 +48,7 @@ Servlet**不是**线程安全的，多线程并发的读写会导致数据不同
 
      request.getRequestDispatcher("login_success.jsp").forward(request, response);
 
-重定向（Rediret）是利用服务器返回的状态吗来实现的。客户端浏览器请求服务器的时候，服务器会返回一个状态码。服务器通过HttpServletRequestResponse的setStatus(int status)方法设置状态码。如果服务器返回301或者302，则浏览器会到新的网址重新请求该资源。
+重定向（Rediret）是利用服务器返回的状态码来实现的。客户端浏览器请求服务器的时候，服务器会返回一个状态码。服务器通过HttpServletRequestResponse的setStatus(int status)方法设置状态码。如果服务器返回301或者302，则浏览器会到新的网址重新请求该资源。
 
 **区别：**
 
