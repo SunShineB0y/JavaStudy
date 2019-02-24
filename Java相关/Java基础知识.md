@@ -197,11 +197,11 @@ java.lang包中的Throwable类，有两个重要的子类：Execption（异常�
 - FileNotFoundException:IOException的子类，文件找不到的时候抛出该异常，是受检查异常，需要进行手工捕获。
 - ClassNotFoundException:类找不到异常，在加载类时抛出，即在类的路径下不能加载指定类。
 - ClassCastException:类转换异常，将一个不是该类的实例转换成这个类就会抛出这个异常。
-- NoSuchMethodException:没有这个方法异常，一般发生在反射调用方法时，时受检查异常，需要进行手工捕获。
+- NoSuchMethodException:没有这个方法异常，一般发生在反射调用方法时，是受检查异常，需要进行手工捕获。
 - IndexOutOfBoundsException：索引越界异常，当操作一个字符串或数组的时候常遇到的异常
 - ArithmeticException:算数异常，数字的算术运算时的异常，比如一个数除以0。
 - SQLException:SQL异常，发生在操作数据库时的异常。
-- RuntimeExecption：
+- RuntimeExecption
 - StringIndexOutOfBoundsException
 - IllegalStateExecption
 - IllegalThreadStateExecption
