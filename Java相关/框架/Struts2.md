@@ -131,7 +131,7 @@ Struts2是一个基于MVC设计模式的Web应用框架，它本质上相当于�
 
 
 
-- 关于ModelDriven中的泛型User，actioon类中用什么接受JSP传递过来的参数，ModelDriven的泛型中就是什么类型。
+- 关于ModelDriven中的泛型User，action类中用什么接受JSP传递过来的参数，ModelDriven的泛型中就是什么类型。
 
 
 ## Struts2获取request(HttpServletRequest)、session(HttpSession)、application（ServletContext）等对象
