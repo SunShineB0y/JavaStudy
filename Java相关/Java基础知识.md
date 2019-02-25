@@ -213,3 +213,10 @@ java.lang包中的Throwable类，有两个重要的子类：Execption（异常�
 
 
 ![](https://i.imgur.com/EgctZoL.jpg)
+
+
+## 23.Java的访问修饰符
+- public 支持不同包，同包，本类，子孙类访问
+- protected 支持同包，本类，子孙类访问
+- default 支持同包，本类访问
+- private 只支持本类访问
