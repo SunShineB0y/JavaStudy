@@ -220,3 +220,8 @@ java.lang包中的Throwable类，有两个重要的子类：Execption（异常�
 - protected 支持同包，本类，子孙类访问
 - default 支持同包，本类访问
 - private 只支持本类访问
+
+
+## 24.Java的基本数据类型
+
+byte，short，int，long，char，float，double，boolean
