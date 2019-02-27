@@ -68,9 +68,21 @@ Session生成后，只要用户继续访问，服务器就会更新Session的最
 ### Session的有效期
 Session有自己的超时时间，如果较长时间没有访问服务器，则Session就会超时，这个Session就会被服务器废弃掉。
 
-Session的超时时间为maxInactiveInterval属性，可以通过对应的getMaxInactiveInterval()获取，通过setMaxInactiveInterval(longinterval)修改。
+1. 通过session.setMaxInactiveInterval（1800）方法修改，1800单位是秒，即在30分钟没有活动后，session将失效。
+ 
+  这里要注意的是，这个session设置的时间是根据服务器来计算的，而不是客户端。所以如果是在调试程序，应该是修改服务器端时间来测试，而不是客户端。
 
-Session的超时时间也可以在web.xml中修改。另外，通过调用Session的invalidate()方法可以使Session失效。
+2. 比较常用的一种修改方式，通过项目的web.xml文件进行修改
+
+        <session-config>
+            <session-timeout>30</session-timeout>
+        </session-config>
+
+  其中30是session的生存时间，设置0，-1表示用不超时。
+
+3. 直接在应用服务器中设置，如果是tomcat，可以在tomcat目录下conf/web.xml中找到<session-config>元素，tomcat默认设置是30分钟，只要修改这个值就可以了。
+
+需要注意的是如果上述三个地方如果都设置了，有个优先级的问题，从高到低：1 > 2 > 3
 
 Session被废弃的几种情况：
   
@@ -87,15 +99,6 @@ Session被废弃的几种情况：
 - long getLastAccessedTime()：返回Session的最后活跃时间。返回类型为long int 
 - getMaxInactiveInterval()：返回Session的超时时间。单位为秒。超过该时间没有访问，服务器认为该Session失效
 - void setMaxInactiveInterval(int second)：设置Session的超时时间。单位为秒 
-
-Tomcat中Session的默认超时时间为20分钟。通过setMaxInactiveInterval(int seconds)修改超时时间。可以修改web.xml改变Session的默认超时时间。例如修改为60分钟：
-
-	<session-config>
-   	<session-timeout>60</session-timeout>      <!-- 单位：分钟 -->
-	</session-config>
-
-注意：参数的单位为分钟，而setMaxInactiveInterval(int s)单位为秒。
-
 
 ### Session和Cookie的区别
 
