@@ -65,7 +65,7 @@ Session在用户第一次访问服务器的时候自动创建。需要注意只�
 
 Session生成后，只要用户继续访问，服务器就会更新Session的最后访问时间，并维护该Session。用户每访问服务器一次，无论是否读写Session，服务器都认为该用户的Session“活跃（active）”了一次。
 
-### Session的有效期
+### Session的有效期及修改方法
 Session有自己的超时时间，如果较长时间没有访问服务器，则Session就会超时，这个Session就会被服务器废弃掉。
 
 1. 通过session.setMaxInactiveInterval（1800）方法修改，1800单位是秒，即在30分钟没有活动后，session将失效。
