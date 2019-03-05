@@ -78,7 +78,7 @@ Session有自己的超时时间，如果较长时间没有访问服务器，则S
             <session-timeout>30</session-timeout>
         </session-config>
 
-  其中30是session的生存时间，设置0，-1表示用不超时。
+  其中30是session的生存时间，设置0，-1表示永不超时。
 
 3. 直接在应用服务器中设置，如果是tomcat，可以在tomcat目录下conf/web.xml中找到<session-config>元素，tomcat默认设置是30分钟，只要修改这个值就可以了。
 
