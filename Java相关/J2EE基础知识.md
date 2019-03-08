@@ -48,7 +48,7 @@ Servlet**不是**线程安全的，多线程并发的读写会导致数据不同
 
      request.getRequestDispatcher("login_success.jsp").forward(request, response);
 
-重定向（Rediret）是利用服务器返回的状态码来实现的。客户端浏览器请求服务器的时候，服务器会返回一个状态码。服务器通过HttpServletRequestResponse的setStatus(int status)方法设置状态码。如果服务器返回301或者302，则浏览器会到新的网址重新请求该资源。
+重定向（Rediret）是利用服务器返回的状态码来实现的。客户端浏览器请求服务器的时候，服务器会返回一个状态码。服务器通过HttpServletResponse的setStatus(int status)方法设置状态码。如果服务器返回301或者302，则浏览器会到新的网址重新请求该资源。
 
 **区别：**
 
@@ -93,7 +93,7 @@ JSP共有9个内置对象：
 在JSP中使用include指令可以包含其他文件，被包含的文件就好像是JSP的一部分，会被同时编译执行，可以是JSP文件、HTML文件或文本文件。 语法格式如下： <%@ include file="文件相对路径" /%>
 
 ## include动作
-jsp:include动作元素用来包含静态和动态的文件，该动作把制定的文件插入正在生成的页面。语法格式如下：<jsp:include  page="文件相对路径" flush="true" />
+jsp:include动作元素用来包含静态和动态的文件，该动作把指定的文件插入正在生成的页面。语法格式如下：<jsp:include  page="文件相对路径" flush="true" />
 
 ## Cookie
 Cookie 是一种会话跟踪机制，由Web服务器生成，发送到浏览器，用于在客户端保持状态。Cookie分为会话Cookie和持久Cookie，会话Cookie保存在内存中，会随着会话的关闭而销毁；持久Cookie保存在本地，可以设定生命周期，到期销毁。Cookie实际上是一小段的文本信息。客户端请求服务器，如果服务器需要记录该用户状态，就使用response向客户端浏览器颁发一个Cookie。客户端浏览器会把Cookie保存起来。当浏览器再请求该网站时，浏览器把请求的网址连同该Cookie一同提交给服务器。服务器检查该Cookie，以此来辨认用户状态。服务器还可以根据需要修改Cookie的内容。
