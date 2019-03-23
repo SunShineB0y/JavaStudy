@@ -271,3 +271,22 @@ byte，short，int，long，char，float，double，boolean
 
 1.  创建一个对象输入流，它可以包装一个其他类型的源输入流，如文件输入流；
 2. 通过对象输入流的readObject()方法读取对象。
+
+## 27.final修饰符
+
+- final变量：
+
+    final变量能被显示地初始化并且只能初始化一次。被声明为final的对象的引用不能指向不同的对象。但是final对象里数据可以被改变。也就是说final对象的引用不能改变，但是里面的值可以改变。
+
+    final和static连用可以创建类常量。常量名必须大写。
+
+ `private static final int SIZE =5` 
+
+- final方法
+
+    类中的final方法可以被子类继承，但是不能被子类修改。声明final方法的目的是防止该方法的内容被修改。
+
+- final类
+
+    final类不能被继承，没有类能够继承final类的任何特性。
+
