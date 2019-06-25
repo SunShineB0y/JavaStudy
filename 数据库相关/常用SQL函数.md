@@ -33,7 +33,32 @@ MYSQL：
 	DATE_FORMAT(CHECKTIME,'%Y-%m-%d %H:%i:%s')
 
 ### DATE()函数 ###
+在MySql中，NOW() 函数返回当前的日期和时间
 
+	NOW()
+CURDATE() 函数返回当前的日期
+
+	CURDATE()
+CURTIME() 函数返回当前的时间
+
+	CURTIME()
+DATE() 函数返回日期或日期/时间表达式的日期部分
+
+	DATE(date)
+
+EXTRACT() 函数用于返回日期/时间的单独部分，比如年、月、日、小时、分钟等等。
+	
+	EXTRACT(unit FROM date)，unit可以是YEAR,MONTH,DAY,HOUR,MINNTE,SECOND等
+
+DATE_ADD() 函数向日期添加指定的时间间隔。
+
+	DATE_ADD(date,INTERVAL 2 day) 表示加2天
+	DATE_ADD(date,INTERVAL 2 hour) 表示加2小时
+
+DATE_SUB() 函数从日期减去指定的时间间隔
+
+	DATE_SUB(date,INTERVAL 2 hour) 表示减2小时
+ 
 ### NULL函数 ###
 
 ### CAST()函数 ###
@@ -73,6 +98,3 @@ LEN()函数返回文本字段中值的长度
 MySql中用LENGTH()函数：
 
 	SELECT LENGTH(column_name) FROM table_name;
-
-### NOW()函数 ###
-NOW() 函数返回当前系统的日期和时间。
