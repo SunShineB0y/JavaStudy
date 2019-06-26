@@ -5,9 +5,9 @@ ROUND() 函数用于把数值字段舍入为指定的小数位数。
 
 	SELECT ROUND(column_name,decimals) FROM table_name;
 
-column_name：必需。要舍入的字段。
+	column_name：必需。要舍入的字段。
 
-decimals：规定要返回的小数位数。
+	decimals：规定要返回的小数位数。
 
 	ROUND(1.298, 1) ：1.3
 	ROUND(1.298, 0) ：1
@@ -23,6 +23,7 @@ CONCAT()函数可以实现拼接
 	CONCAT(DATE(CHECKTIME), ' 00:00:00')
 
 	dbid的模糊查询：DBID LIKE CONCAT('%',CONCAT(#{dbid},'%'))
+
 ### DATE_FORMAT()函数和TO_CHAR()函数 ###
 这两个函数都可以实现时间格式的转换，返回字符串类型的数据
 
@@ -50,14 +51,12 @@ EXTRACT() 函数用于返回日期/时间的单独部分，比如年、月、日
 	
 	EXTRACT(unit FROM date)，unit可以是YEAR,MONTH,DAY,HOUR,MINNTE,SECOND等
 
-DATE_ADD() 函数向日期添加指定的时间间隔。
+在MySQL中，DATE_ADD() 函数向日期添加指定的时间间隔，DATE_SUB() 函数从日期减去指定的时间间隔。而在DB2中，用“+”或“-”即可实现时间运算
 
 	DATE_ADD(date,INTERVAL 2 day) 表示加2天
 	DATE_ADD(date,INTERVAL 2 hour) 表示加2小时
-
-DATE_SUB() 函数从日期减去指定的时间间隔
-
 	DATE_SUB(date,INTERVAL 2 hour) 表示减2小时
+	(#{checktime})+1 HOUR  DB2的写法，checktime是YYYY-MM-DD HH:mm:ss格式，表示加一小时，(#{checktime})-1 DAY 则表示减去一天
  
 ### NULL函数 ###
 
