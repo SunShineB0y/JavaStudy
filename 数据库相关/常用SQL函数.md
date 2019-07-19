@@ -74,10 +74,28 @@ CONCAT()函数可以实现拼接
 这两个函数都可以实现时间格式的转换，返回字符串类型的数据
 
 DB2和ORACLE:
+
 	TO_CHAR(CHECKTIME, 'yyyy-mm-dd hh24:mi:ss')
+	也可用TO_CHAR()函数转换字段类型,如：TO_CHAR(APPLICATION_HANDLE)
 
 MYSQL：
+
 	DATE_FORMAT(CHECKTIME,'%Y-%m-%d %H:%i:%s')
+
+MYSQL中提供了两个内置函数提供我们使用分别为:CAST和CONVERT，Mysql 的CAST()和CONVERT() 函数可用来转换或者获取一个我们需要的类型：
+	
+	CAST(value as type)
+	CONVERT(value, type);
+	可以转换的类型是有限制的。这个类型可以是以下值其中的一个：
+	二进制，同带binary前缀的效果 : BINARY    
+	字符型，可带参数 : CHAR()     
+	日期 : DATE     
+	时间: TIME     
+	日期时间型 : DATETIME     
+	浮点数 : DECIMAL      
+	整数 : SIGNED     
+	无符号整数 : UNSIGNED 
+
 
 ### DATE()函数 ###
 在MySql中，NOW() 函数返回当前的日期和时间
