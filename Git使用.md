@@ -29,3 +29,10 @@
 	git stash apply  恢复（不删除stash）
 	git stash drop  删除第一条stash
 	git stash pop  恢复并删除stash
+
+查看log
+
+	git log 查看全部log
+	git log --oneline 显示在一行
+	git log --oneline -n4 查看最近四条log
+	git log --oneline master 查看master分支的log
