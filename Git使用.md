@@ -1,10 +1,15 @@
 ## Git ##
-撤销修改
-	
-	git checkout -- file
+分支操作
 
-	作用：1.修改后，还没有放到暂存区，使用 撤销修改就回到和版本库一模一样的状态。
-	     2.另外一种是readme.txt已经放入暂存区了，接着又作了修改，撤销修改就回到添加暂存区后的状态。
+	git branch dev 创建dev分支
+	git checkout dev 切换到dev分支
+	git checkout -b dev 创建并切换到dev分支
+	git branch -d dev 删除dev分支
+
+查看分支信息
+
+	git branch 查看本地分支
+	git branch -a 查看本地和远程所有分支
 
 远程dev分支拉到本地
 
@@ -29,6 +34,13 @@
 	git stash apply  恢复（不删除stash）
 	git stash drop  删除第一条stash
 	git stash pop  恢复并删除stash
+
+撤销修改
+	
+	git checkout -- file
+
+	作用：1.修改后，还没有放到暂存区，使用 撤销修改就回到和版本库一模一样的状态。
+	     2.另外一种是readme.txt已经放入暂存区了，接着又作了修改，撤销修改就回到添加暂存区后的状态。
 
 查看log
 
