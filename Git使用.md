@@ -1,4 +1,13 @@
-## Git ##
+## Git常用操作 ##
+初始化Git仓库
+    
+    git init 初始化成功后，文件夹会出现.git文件，默认是隐藏的，这个文件
+    很重要，git仓库的版本信息的内容都会存在这个文件中，不可删除
+    
+克隆一个仓库
+
+    git clone url  url就是远程库的地址
+    
 分支操作
 
 	git branch dev 创建dev分支
@@ -51,6 +60,11 @@
 	git commit -m "本次修改的注释"
 	git commit -a -m "本次修改的注释"  对于未添加到缓存区的文件，这条命令直接带着“-a”即可直接提交到本地库
 
+拉取和推送
+
+    git pull 从远程库拉取最新代码
+    git push 把本地已经commit的代码同步到远程库
+    
 查看log
 
 	git log 查看全部log
