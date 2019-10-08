@@ -71,3 +71,9 @@
 	git log --oneline 显示在一行
 	git log --oneline -n4 查看最近四条log
 	git log --oneline master 查看master分支的log
+	
+版本回退
+
+    git reset --hard HEAD^ 回退到上一个版本
+    git reset --hard HEAD^^ 回退到上两个版本
+    git reset --hard 8b6e8449 回退到指定版本
