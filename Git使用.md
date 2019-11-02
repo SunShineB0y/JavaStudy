@@ -13,16 +13,14 @@
 	git branch dev 创建dev分支
 	git checkout dev 切换到dev分支
 	git checkout -b dev 创建并切换到dev分支
+	git checkout -b develop remotes/origin/develop 拉取远程develop分支到本地，并切换到本地develop分支
 	git branch -d dev 删除dev分支
+	git merge develop 把develop分支merge到当前分支(推荐使用可视化工具进行merge，而不是用命令，因为用命令不易解决冲突)
 
 查看分支信息
 
 	git branch 查看本地分支
 	git branch -a 查看本地和远程所有分支
-
-远程dev分支拉到本地
-
-	git checkout –b dev origin/dev  创建，同步并切换到dev分支
 
 本地分支推送到远程库
 	
@@ -51,6 +49,10 @@
 	作用：1.修改后，还没有放到暂存区，使用 撤销修改就回到和版本库一模一样的状态。
 	     2.另外一种是readme.txt已经放入暂存区了，接着又作了修改，撤销修改就回到添加暂存区后的状态。
 
+查看状态
+    
+    git status 查看工作区的状态，会显示出在工作区和暂存区的所有文件
+
 添加到暂存区
 
 	git add Git使用.md
@@ -71,9 +73,10 @@
 	git log --oneline 显示在一行
 	git log --oneline -n4 查看最近四条log
 	git log --oneline master 查看master分支的log
+	git log --oneline develop -n4 查看develop分支的最近四条日志，并显示在一行
 	
 版本回退
 
     git reset --hard HEAD^ 回退到上一个版本
     git reset --hard HEAD^^ 回退到上两个版本
-    git reset --hard 8b6e8449 回退到指定版本
+    git reset --hard 8b6e8449 回退到指定版本，其中8b6e8449是具体的版本号
