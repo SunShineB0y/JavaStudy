@@ -1,7 +1,7 @@
 ## 1.Java面向对象编程的特性 ##
 **封装**
 
-封装是把对象的属性私有化，同时提供一些可以被外界访问的属性的方法，如果属性不想被外界访问，我们大可不必提供方法给外界访问。但是如果一个类没有提供给外界访问的方法，那么这个类也没有什么意义了。
+封装是把对象的属性私有化，同时提供一些可以被外界访问的属性的方法，如果属性不想被外界访问，我们大可不必提供这些方法。但是如果一个类没有提供给外界访问的方法，那么这个类也没有什么意义了。
 
 **继承**
 
@@ -40,7 +40,7 @@ Java虚拟机，java.exe运行起来就是虚拟机，是一个进程。当我�
 
 **区别和联系**
 
-1. JDK用于开发，JRE用于运行,JDK包含了JRE
+1. JDK用于开发，JRE用于运行，JDK包含了JRE
 2. JDK和JRE都包含了JVM
 3. JVM是Java语言的核心并且具有平台独立性。
 
@@ -94,8 +94,8 @@ instance of 通过返回一个布尔类型的值来判断一个对象是否是�
 ## 8.String、StringBuilder、StringBuffer三者的区别
 1. String使用final关键字修饰的字符数组保存字符串，`private final char value[]`，所以String对象是不可变的。每次对 String 类型进行改变的时候，都会生成一个新的 String 对象，然后将指针指向新的 String 对象。
 
-	StringBuilder 与 StringBuffer 都继承自 AbstractStringBuilder 类，在 AbstractStringBuilder 中也是使用字符数组保存字符串char[] value 但是没有用 final 关键字修饰，所以这两种对象都是可变的。StringBuffer 和StringBuilder每次都会对字符串对象本身进行操作，而不是生成新的对象并改变对象引用。
-1. String 中的对象是不可变的，也就可以理解为常量，线程安全。AbstractStringBuilder 是 StringBuilder 与 StringBuffer 的公共父类，定义了一些字符串的基本操作，如 expandCapacity、append、insert、indexOf 等公共方法。StringBuffer 对方法加了同步锁或者对调用的方法加了同步锁，所以是线程安全的。StringBuilder 并没有对方法进行加同步锁，所以是非线程安全的。 
+	StringBuilder 与 StringBuffer 都继承自 AbstractStringBuilder 类，在 AbstractStringBuilder 中也是使用字符数组char[] value 保存字符串，但是没有用 final 关键字修饰，所以这两种对象都是可变的。StringBuffer 和StringBuilder每次都会对字符串对象本身进行操作，而不是生成新的对象并改变对象引用。
+1. String 中的对象是不可变的，也就可以理解为常量，线程安全。AbstractStringBuilder 是 StringBuilder 与 StringBuffer 的公共父类，定义了一些字符串的基本操作，如 expandCapacity、append、insert、indexOf 等公共方法。StringBuffer 对方法加了同步锁或者对调用的方法加了同步锁，所以是线程安全的。StringBuilder 并没有对方法进行加同步锁，所以不是线程安全的。 
 
 **总结：**
 		
@@ -131,7 +131,7 @@ Java 程序在执行子类的构造方法之前，如果没有用 super() 来调
 2. 接口中的实例变量默认是final的，而抽象类则不一定
 3. 一个类可以实现多个接口，但最多实现一个抽象类
 4. 一个类实现接口的话要实现接口的所有方法，而抽象类则不一定
-5. 接口不能用 new 实例化，但可以声明，但是必须引用一个实现该接口的对象。从设计层面来说，抽象是对类的抽象，是一种模板设计，接口是行为的抽象，是一种行为的规范。
+5. 接口不能用 new 实例化，但可以声明，但是必须引用一个实现该接口的对象。从设计层面来说，抽象类是对类的抽象，是一种模板设计，接口是行为的抽象，是一种行为的规范。
 
 ## 15.类的构造方法有什么作用？没有声明构造方法还能执行吗？
 构造方法的主要作用是完成对类对象的初始化工作。
