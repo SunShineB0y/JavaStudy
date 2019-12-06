@@ -9,7 +9,7 @@
 - value="说明方法的用途，作用"
 - notes="方法的备注说明"
 	
-		@ApiOperation(value="用户注册",notes="手机号、密码都是必输项，年龄随边填，但必须是数字")
+		@ApiOperation(value="用户注册",notes="手机号、密码都是必输项，年龄随便填，但必须是数字")
 
 ### 3.@ApiImplicitParams：用在请求的方法上，表示一组参数说明
 
@@ -17,7 +17,7 @@
 
 	- name:参数名
 	- value：参数的汉字解释
-	- required:参数是否必须传，默认是true,即必须传
+	- required:参数是否必须传，默认是true，即必须传
 	- paramType:参数类型，用来说明参数是从哪儿获取到的
 
 		- paramType是header时: 用@RequestHeader
