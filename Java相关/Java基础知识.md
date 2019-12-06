@@ -182,6 +182,9 @@ java.lang包中的Throwable类，有两个重要的子类：Execption（异常�
 
 - throw:用于抛出异常，可以return，一层一层地向上抛，直到找到可以处理它的调用处。
 
+- 用一句话概述：finally块的语句在try或catch中的return语句执行之后返回之前执行且finally里的修改语句可能影响也可能不影响try或
+catch中return已经确定的返回值，若finally里也有return语句则覆盖try或catch中的return语句直接返回。
+
 #### Throwable类常用方法
 
 - public string getMessage():返回异常发生时的详细信息
