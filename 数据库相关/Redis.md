@@ -1,7 +1,22 @@
 # Redis #
 Redis是一个基于内存的高性能的key-value数据库系统，整个系统加载在内存中进行操作，定期通过异步操作把数据存储到磁盘中。
 
-## Redis的好处 ##
+## Redis的可执行文件 ##
+redis-server是Redis服务器，redis-cli是Redis命令行客户端，
+redis-benchmark是Redis提供的性能测试工具，redis-check-aof是Redis的aof文件修复工具，
+redis-check-dump是Redis的rdb文件修复工具，redis-sentinel可用于起动Redis的sentinal节点
+
+## Redis三种启动方式 ##
+1. 最简启动
+执行`redis-server`，这种方式使用的是redis默认的配置文件
+
+2. 动态参数启动
+执行`redis-server --port 6380`，可通过这种方式指定参数来启动
+
+3. 配置文件启动
+执行`redis-server redis.conf`，通过这种方式指定特定的配置文件，可在配置文件中自定义一些参数的值
+
+## Redis的优点 ##
 
 1. 读写速度快，因为数据存储在内存中
 2. 支持多种类型的数据结构，如List、String、Set、SortedSet(Zset)、hash
@@ -32,10 +47,35 @@ AOF持久化：通过保存对redis服务端的写命令来记录数据库状态
 RDB持久化方式：方便备份，恢复大数据集时比AOF要快，但是会丢失部分数据
 
 AOF持久化方式：AOF文件会过大。
-## 分布式 ##
+
+## Redis事务 ##
+在Redis中，MULTI/EXEC/DISCARD/WATCH这四个命令是我们实现事务的基石。
+
+1. 在事务中的所有命令都将会被串行化的顺序执行，事务执行期间，Redis不会再为其它客户端的请求提供任何服务，
+从而保证了事物中的所有命令被原子的执行。
+
+2. 和关系型数据库中的事务相比，在Redis事务中如果有某一条命令执行失败，其后的命令仍然会被继续执行。
+
+3. MULTI命令可以开启一个事务，类似于“BEGIN TRANSACTION”。在该语句之后执行的命令都将被视为事务之内的操作，
+最后我们可以通过执行EXEC/DISCARD命令来提交/回滚该事务内的所有操作。
+这两个Redis命令可被视为等同于关系型数据库中的COMMIT/ROLLBACK语句。
+
+4. 在事务开启之前，如果客户端与服务器之间出现通讯故障并导致网络断开，其后所有待执行的语句都将不会被服务器执行。
+然而如果网络中断事件是发生在客户端执行EXEC命令之后，那么该事务中的所有命令都会被服务器执行。
+
+## Redis主从复制 ##
 
 Redis支持主从的模式。原则：Master会将数据同步到slave，而slave不会将数据同步到master。Slave启动时会连接master来同步数据。
 
+1. 同一个master可以连接多个slave
+
+2. Slave同样可以接受其它Slaves的连接和同步请求，可以有效的分载Master的同步压力，所以可以将Redis的Replication架构视为图结构。
+
+3. Master Server是以非阻塞的方式为Slaves提供服务，所以在Master-Slave同步期间，客户端仍然可以提交查询或修改请求。
+
+4. Slave Server同样是以非阻塞的方式完成数据同步，在同步期间，如果有客户端提交查询请求，Redis则返回同步之前的数据。
+
+5. Master可以将数据保存操作交给Slaves完成，从而避免了在Master中要有独立的进程来完成此操作。
 
 这是一个典型的分布式读写分离模型。我们可以利用master来插入数据，slave提供检索服务。这样可以有效减少单个机器的并发访问数量。
 
