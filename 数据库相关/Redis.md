@@ -77,7 +77,33 @@ Redis支持主从的模式。原则：Master会将数据同步到slave，而slav
 
 5. Master可以将数据保存操作交给Slaves完成，从而避免了在Master中要有独立的进程来完成此操作。
 
+6. 当一个slave库取消主从复制时，之前同步过的数据不会被清除；当这个库再被设置为slave时，会清空数据并进行同步
+
 这是一个典型的分布式读写分离模型。我们可以利用master来插入数据，slave提供检索服务。这样可以有效减少单个机器的并发访问数量。
+
+#### 配置主从复制 ####
+1.通过命令
+
+    # 把6380设置成同一主机上6379的slave，在slave 上执行
+    slaveof 127.0.0.1 6379   # 即 slaveof  ip  port
+    # 若想取消该slave的主从复制，需要在slave执行
+    slaveof no one    # 该命令不会清除之前同步过的数据
+
+2.通过配置文件
+通过配置文件这种方式需要重启redis服务器。
+
+    slaveof <masterip> <masterport>  # 配置master
+    masterauth <master-password>  # 如果master库配置了密码，需要用该配置认证master库的密码
+    # 设置slave为只读，可避免slave写入数据，而master不能同步slave的数据，最终导致数据不一致
+    slave-read-only yes 
+
+#### 全量复制的开销 ####
+1.主节点执行bgsave的时间
+2.rdb文件网络传输时间
+3.从节点清空数据的时间
+4.从节点加载rdb的时间
+5.从节点可能的aof重写时间
+
 
 ## Redis缓存击穿、失效及热点key问题 ##
 
