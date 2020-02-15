@@ -1,5 +1,6 @@
 ## MongoDB介绍 ##
-MongoDB是个非关系型数据库，但操作跟关系型数据最类似。它是面向文档存储的非关系型数据库，数据以json的格式进行存储。MongoDB可用来永久存储，也可用来缓存数据，MongoDB提供了副本集和分片集群的功能。
+MongoDB是个非关系型数据库，但操作跟关系型数据最类似。它是面向文档存储的非关系型数据库，
+数据以json的格式进行存储。MongoDB可用来永久存储，也可用来缓存数据，MongoDB提供了副本集和分片集群的功能。
 
 需要注意的是：MongoDB的版本偶数版本为稳定版，奇数版本为开发版。
 
@@ -19,7 +20,7 @@ MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，�
 
 - 创建数据库 runoob
 
-		use runoob;
+		use runoob; # 使用use即可，无需显示创建
 
 - 查看当前db
 
@@ -33,11 +34,12 @@ MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，�
 
 - 查看所有数据库
 
-		show dbs;
-        show databases;
-		admin   0.000GB
-		config  0.000GB
-		local   0.000GB
+      show dbs;
+      show databases;
+      # admin/config/local 是mongodb自带的三个库
+      admin   0.000GB
+	    config  0.000GB
+      local   0.000GB
 
 在 MongoDB 中，集合只有在内容插入后才会创建! 就是说，创建集合(数据表)后要再插入一个文档(记录)，集合才会真正创建。
 
@@ -55,11 +57,67 @@ MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，�
 
 此时向 runoob 数据库插入了一些数据,再查看所有db
 
-		show dbs;
-		admin   0.000GB
-		config  0.000GB
-		local   0.000GB
-		runoob  0.000GB
+	show dbs;
+	admin   0.000GB
+	config  0.000GB
+	local   0.000GB
+	runoob  0.000GB
 
 如上，可以看到我们的runoob。
+		
+- 查询数据
+
+      db.runoob.find() # 查询所有数据
+      db.runoob.find().pretty() # 用易读的方式展示数据
+      db.runoob.find().limit(2) # 限制查询数量
+      db.runoob.find().skip(2) # 跳过前两条数据
+      db.runoob.find({"age":"18"}) # 带条件的查询
+
+    - 可以用skip和limit组合实现分页查询
+    
+          db.runoob.find().skip(0).limit(2)
+          db.runoob.find().skip(2).limit(2)
+          db.runoob.find().skip(4).limit(2)
+          
+    - 使用sort进行排序
+    
+          db.runoob.find().sort({"age":1}) # 按age升序
+          db.runoob.find().sort({"age":-1}) # 按age降序
+          
+    - 数字比较查询
+    
+          db.runoob.find({"age":{$lt:30}}) # 查询age小于30的数据
+          $gt	#大于
+          $lt	#小于
+          $gte	#大于或等于
+          $lte	#小于或等于
+    
+    - 多种查询条件组合
+    
+          db.runoob.find({"name":"张三"})
+          db.runoob.find({"name":"李四"})
+          db.runoob.find({$or:[{"name":"张三"},{"name":"李四"}]}) # 或者
+          db.runoob.find({$and:[{"name":"张三"},{"name":"李四"}]}) # 并且
+          db.runoob.find({$and:[{"name":"张三"},{"age":"20"}]}) 
+          
+    - mongodb正则查询，支持普通正则和扩展正则
+    
+          db.runoob.find({"name":{$regex:"zhangsan[1-9]"}}) # 普通正则过滤
+          db.runoob.find({"name":{$regex:"(zhangsan)"}}) # 支持分组正则
+		
+- 查看集合
+
+      show collections; # 或者 show tables 
+      
+- 删除数据
+
+      use mydatabase
+      db.runoob.remove("age":"18") # 删除数据使用remove
+      db.runoob.remove({}) #删除集合的所有数据，需要{}
+      db.runoob.drop() # 删除集合
+      
+- 更新数据
+
+      use mydatabase
+      db.runoob.update({"age":"18"},{$set:{"age":"20"}})
 
