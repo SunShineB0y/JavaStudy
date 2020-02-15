@@ -68,10 +68,12 @@ MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，�
 - 查询数据
 
       db.runoob.find() # 查询所有数据
+      db.runoob.count() # 查询记录数
       db.runoob.find().pretty() # 用易读的方式展示数据
       db.runoob.find().limit(2) # 限制查询数量
       db.runoob.find().skip(2) # 跳过前两条数据
-      db.runoob.find({"age":"18"}) # 带条件的查询
+      db.runoob.find({"age":18}) # 带条件的查询
+      db.runoob.find({"age":18}).explain(true) # 使用explain可以查看是否全表扫描
 
     - 可以用skip和limit组合实现分页查询
     
