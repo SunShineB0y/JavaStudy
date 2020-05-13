@@ -113,13 +113,13 @@ MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，�
       
 - 删除数据
 
-      use mydatabase
+      use runoob
       db.runoob.remove("age":"18") # 删除数据使用remove
       db.runoob.remove({}) #删除集合的所有数据，需要{}
       db.runoob.drop() # 删除集合
       
 - 更新数据
 
-      use mydatabase
+      use runoob
       db.runoob.update({"age":"18"},{$set:{"age":"20"}})
 
