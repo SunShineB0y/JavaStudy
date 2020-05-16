@@ -16,7 +16,7 @@ rdb文件也是一个复制的媒介，当进行主从复制的时候也会用�
     bgsave即background save是一条异步命令，redis客户端会调用Linux的fork()函数创建一个子进程去执行这个命令，当子进程生成rdb文件成功后会通知主进程。fork()函数会执行的比较快，大多数情况下不会阻塞redis主进程。bgsave方式由于需要fork，所以会额外消耗内存。
 
 3. 自动
-    可在redis配置文件中配置save命令并指定参数来打开redis的自动RDB持久化。可自定义参数值。这种rdb持久化的方式也是通过bgsave的方式。注意：save自动配置没满足任一条件就会进行持久化。
+    可在redis配置文件中配置save命令并指定参数来打开redis的自动RDB持久化。可自定义参数值。这种rdb持久化的方式也是通过bgsave的方式。注意：save自动配置每满足任一条件就会进行持久化。
 
         # redis配置文件中save命令的默认配置 
         save 900 1  # 900s内有1个key发生改变则进行持久化
@@ -25,7 +25,7 @@ rdb文件也是一个复制的媒介，当进行主从复制的时候也会用�
 
         dbfilename dump.dmb  #rdb文件名，默认是dump.rdb
         dir ./ #指定rdb文件的路径，默认是当前路径
-        stop-writes-on-bgsave-error  yes  #当bgseve发生错误时是否停止写入
+        stop-writes-on-bgsave-error  yes  #当bgsave发生错误时是否停止写入
         rdbcompression yes  #rdb文件是否采用压缩的格式，默认yes
         rdbchecksum yes  #对rdb数据进行校验，默认yes
 
@@ -49,9 +49,10 @@ AOF持久化是把Redis客户端的每条写命令记录到aof文件中，每写
 
 ### AOF持久化的三种策略 ###
 
-    always  # 每条命令都会从缓冲区fsync到硬盘中
-    everysec  # 每秒种进行一次刷新，把命令从缓冲区fsync到硬盘中
-    no  # 由操作系统决定fsync
+    Redis用appendfsync来配置aof持久化策略
+    appendfsync always  # 每条命令都会从缓冲区fsync到硬盘中
+    appendfsync everysec  # 每秒种进行一次刷新，把命令从缓冲区fsync到硬盘中
+    appendfsync no  # 由操作系统决定fsync
 
 always不会丢失数据，但IO开销比较大；everysec每秒进行一次fsync，会丢失一秒钟的数据；no 方式则不可管、不可控
 
@@ -76,7 +77,6 @@ always不会丢失数据，但IO开销比较大；everysec每秒进行一次fsyn
     appendfilename "appedonly-${port}.aof"  # aof文件名
     appendfsync everysec  # aof持久化的策略
     dir ./  # 指定aof文件的位置
-    no-appendfsync-on-rewrite yes
     no-appendfsync-on-rewirte yes  # 在aof重写时，是否做aof的append操作
     auto-aof-rewrite-persentage  100
     auto-aof-rewrite-min-size  64mb
