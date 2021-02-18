@@ -26,7 +26,7 @@ mongostat命令可实时（1秒钟刷新一次）显示Mongodb数据库的运行
 #### 参数解释 ####
 
 - insert/query/update/delete  
-  每秒执行更删改查的次数
+  每秒执行增删改查的次数
 
 - getmore  
   mongodb在进行查询时，每次并不是返回所有的数据，比如要一次查询一百万条，
