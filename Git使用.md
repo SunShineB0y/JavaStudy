@@ -80,3 +80,4 @@
     git reset --hard HEAD^ 回退到上一个版本
     git reset --hard HEAD^^ 回退到上两个版本
     git reset --hard 8b6e8449 回退到指定版本，其中8b6e8449是具体的版本号
+    git push origin HEAD --force 把本地回退后的版本强推到远程仓库，按需执行
